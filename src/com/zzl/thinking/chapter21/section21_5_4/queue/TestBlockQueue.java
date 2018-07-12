@@ -23,14 +23,19 @@ public class TestBlockQueue {
 	static void test(String msg, BlockingQueue<LiftOff> queue) {
 		System.out.println(msg);
 		LiftOffRunner runner = new LiftOffRunner(queue);
+		// 创建一个线程
 		Thread t = new Thread(runner);
+		// 启动线程
 		t.start();
+		// 添加5个任务到队列中
 		for (int i = 0; i < 5; i++) {
 			runner.add(new LiftOff(5));
 		}
 		getKey("Press 'Enter' (" + msg + ")");
+		// 中断线程
 		t.interrupt();
 		System.out.println("Finished " + msg + " test");
+		System.out.println();
 	}
 	public static void main(String[] args) {
 		test("LinkedBlockingQueue", new LinkedBlockingQueue<LiftOff>());
